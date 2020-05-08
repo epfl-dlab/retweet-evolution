@@ -1,0 +1,5 @@
+clusterid	fraction
+1	0.329
+2	0.501
+3	0.168
+4	0
