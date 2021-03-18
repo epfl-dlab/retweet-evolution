@@ -156,7 +156,7 @@ for (i in 1:4) {
   df_fit <- dfs_fit[[i]]
   if (i == 1) {
     plot(df_raw$x, df_raw$y, xlim=xlim, ylim=ylim, col=COL_LIGHT[i+4], bty='n', axes=FALSE,
-         xlab='', ylab='', pch=pch, cex=cex)
+         xlab='', ylab='', pch=pch, cex=cex, log='')
   } else {
     points(df_raw$x, df_raw$y, col=COL_LIGHT[i+4], pch=pch, cex=cex)
   }
@@ -179,11 +179,10 @@ xlim <- c(0,250)
 col_alpha <- COL[5]
 col_c <- COL[7]
 
-if (SAVE_PLOTS) pdf(sprintf('%s/fig5.pdf', PLOT_DIR), width=1.7, height=1.2, pointsize=6,
-                      family='Helvetica', useDingbats=FALSE)
+if (SAVE_PLOTS) pdf(sprintf('%s/fig5.pdf', PLOT_DIR), width=3.2, height=1.4, pointsize=6, family='Helvetica', useDingbats=FALSE)
 par(mar=c(3.5, 3.5, 1.0, 3.5))
 # alpha
-plot(df$x, df$c, type='l', xlim=xlim, ylim=c(0,2), col=col_c, bty='n', lwd=1, axes=FALSE, xlab='', ylab='')
+plot(df$x, df$c, type='l', xlim=xlim, ylim=c(0,2), col=col_c, bty='n', lwd=2, axes=FALSE, xlab='', ylab='')
 axis(1, las=2)
 mtext('Week on Twitter', side=1, line=2.5)
 axis(4, col=col_c, col.axis=col_c, las=2)
