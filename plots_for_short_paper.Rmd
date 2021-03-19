@@ -179,18 +179,18 @@ xlim <- c(0,250)
 col_alpha <- COL[5]
 col_c <- COL[7]
 
-if (SAVE_PLOTS) pdf(sprintf('%s/fig5.pdf', PLOT_DIR), width=3.2, height=1.4, pointsize=6, family='Helvetica', useDingbats=FALSE)
+if (SAVE_PLOTS) pdf(sprintf('%s/fig5.pdf', PLOT_DIR), width=2.7, height=1.4, pointsize=6, family='Helvetica', useDingbats=FALSE)
 par(mar=c(3.5, 3.5, 1.0, 3.5))
 # alpha
 plot(df$x, df$c, type='l', xlim=xlim, ylim=c(0,2), col=col_c, bty='n', lwd=2, axes=FALSE, xlab='', ylab='')
-axis(1, las=2)
+axis(1)
 mtext('Week on Twitter', side=1, line=2.5)
-axis(4, col=col_c, col.axis=col_c, las=2)
+axis(4, col=col_c, col.axis=col_c)
 mtext(expression(italic(c)), side=4, line=2.5, col=col_c)
 # c
 par(new=TRUE)
 plot(df$x, df$alpha, type='l', xlim=xlim, ylim=c(0,1), col=col_alpha, bty='n', lwd=2, axes=FALSE, xlab='', ylab='')
-axis(2, col=col_alpha, col.axis=col_alpha, las=2)
+axis(2, col=col_alpha, col.axis=col_alpha)
 mtext(expression(alpha), side=2, line=2.5, col=col_alpha)
 if (SAVE_PLOTS) dev.off()
 ```
