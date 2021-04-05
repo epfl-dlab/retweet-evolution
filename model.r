@@ -61,13 +61,6 @@ f <- function(x) {
   c*x^-alpha
 }
 
-# total <- 0
-# for (i in 1:1e8) {
-#   total <- total + f(i)
-# }
-# f(i)
-# total
-
 pdf(sprintf('%s/retweet_rates_f.pdf', PLOTDIR), width=1.7, height=1.4, pointsize=6, family='Helvetica', useDingbats=FALSE)
 par(mar=c(3.2, 3.4, 0.8, 0.8))
 plot(t, f(t), col='white', axes=FALSE, xlab='', ylab='', xlim=c(0,max(t)))
@@ -125,3 +118,31 @@ legend('bottomleft', bty='n', legend=paste('s =', S[1:3]), lty=1, lwd=2, col=col
 legend('bottomright', bty='n', legend=paste('s =', S[4:6]), lty=1, lwd=2, col=col[4:6])
 dev.off()
 
+###########################################################################
+
+# In the paper, we assumed that the s initial followers don't retweet. Instead, we may
+# also assume that they do retweet, at the same rate as those "regular" followers that
+# started to follow the focal user in the first time step. The resulting curves are very
+# similar to those that emerge when the s initial followers are silent, with the difference
+# that the curves are prefixed with a sharp, brief dip at the very beginning.
+# Note that the vector if time steps were adjusted here. This is just to zoom into the
+#interesting regime; the same could be achieved by keeping t fixed and adjusting c.
+
+t <- seq(0.01,5,0.01)
+par(mar=c(3.2, 3.4, 0.8, 0.8))
+i <- 1
+S <- c(0,4,6,8,10,12)
+for (s in S) {
+  # This is the relevant change.
+  yy <- cumsum(f(t)) + s*f(t)
+  z <- yy/(t+s)
+  if (i == 1) plot(t, z, type='l', col=col[i], axes=FALSE, xlab='', ylab='', xlim=c(0,max(t)), ylim=c(0,100), lwd=2)
+  else lines(t, z, col=col[i], lwd=2)
+  i <- i + 1
+}
+axis(1)
+mtext('Time t', side=1, line=2)
+axis(2)
+mtext(expression(paste('Norm. retweet count ', G[s](t))), side=2, line=2)
+legend('bottomleft', bty='n', legend=paste('s =', S[1:3]), lty=1, lwd=2, col=col[1:3])
+legend('bottomright', bty='n', legend=paste('s =', S[4:6]), lty=1, lwd=2, col=col[4:6])
