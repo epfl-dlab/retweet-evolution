@@ -39,7 +39,7 @@ for (s in S) {
 
 # Discrete time
 
-PLOTDIR <- sprintf('%s/Desktop/qscore', Sys.getenv('HOME'))
+PLOTDIR <- sprintf('%s/github/retweet-evolution/plotting/plots', Sys.getenv('HOME'))
 
 # Source: http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/
 COL_LIGHTBLUE <- "#56B4E9"
@@ -126,7 +126,7 @@ dev.off()
 # similar to those that emerge when the s initial followers are silent, with the difference
 # that the curves are prefixed with a sharp, brief dip at the very beginning.
 # Note that the vector if time steps were adjusted here. This is just to zoom into the
-#interesting regime; the same could be achieved by keeping t fixed and adjusting c.
+# interesting regime; the same could be achieved by keeping t fixed and adjusting c.
 
 t <- seq(0.01,5,0.01)
 par(mar=c(3.2, 3.4, 0.8, 0.8))

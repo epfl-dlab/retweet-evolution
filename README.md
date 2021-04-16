@@ -1,11 +1,13 @@
 # Paper
 
-Evolution of Retweet Rates in Twitter User Careers: Analysis and Model by Kiran Garimella and Robert West
-Accepted at the 15th International Conference on Web and Social Media, 2021.
+Kiran Garimella and Robert West:
+Evolution of Retweet Rates in Twitter User Careers: Analysis and Model.
+*Proceedings of the 15th International Conference on Web and Social Media,*
+2021.
 
 # Code and data
 
-The code and data can be found at https://zenodo.org/record/4685973
+The dataset, as well as code for obtaining historical follower counts from the Internet Archive, can be found at https://zenodo.org/record/4685973
 
 # Abstract
 

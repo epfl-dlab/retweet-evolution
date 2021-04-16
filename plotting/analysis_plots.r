@@ -1,26 +1,14 @@
----
-title: "R Notebook"
-output: html_notebook
-editor_options: 
-  chunk_output_type: console
----
-
-# Global definitions
-
-```{r}
 SAVE_PLOTS <- TRUE
 
-DATA_DIR <- sprintf('%s/github/retweet-evolution/data', Sys.getenv('HOME'))
-PLOT_DIR <- sprintf('%s/github/retweet-evolution/plots', Sys.getenv('HOME'))
+DATA_DIR <- sprintf('%s/github/retweet-evolution/plotting/data', Sys.getenv('HOME'))
+PLOT_DIR <- sprintf('%s/github/retweet-evolution/plotting/plots', Sys.getenv('HOME'))
 
-# COL <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 COL <- c("#000000", "#E69F00", "#56B4E9", "#D55E00", "#009E73", "#0072B2", "#CC79A7", "#F0E442")
 COL_LIGHT <- sprintf('%s44', COL)
-```
+
 
 # Fig. 1a: Evolution of retweet counts
 
-```{r}
 dfs <- NULL
 
 for (i in 1:4) {
@@ -52,12 +40,10 @@ axis(2); mtext('Median mean retweets', side=2, line=2.5)
 legend('bottomright', legend=sprintf('%d-%d weeks', seq(100,400,100), seq(200,500,100)), lty=1, lwd=lwd,
        bty='n', col=COL, inset=c(0,0))
 if (SAVE_PLOTS) dev.off()
-```
 
 
 # Fig. 1b: Evolution of per-follower retweet rates
 
-```{r}
 dfs <- NULL
 
 for (i in 1:4) {
@@ -89,12 +75,10 @@ axis(2); mtext('Retweets per 1000 followers', side=2, line=2.5)
 legend('topright', legend=sprintf('%d-%d weeks', seq(100,400,100), seq(200,500,100)), lty=1, lwd=lwd,
        bty='n', col=COL, inset=c(0,-0.07))
 if (SAVE_PLOTS) dev.off()
-```
 
 
 # Fig. 4a: Assumption I
 
-```{r}
 dfs <- NULL
 
 for (i in 1:4) {
@@ -127,11 +111,10 @@ axis(2); mtext('Median number of followers', side=2, line=2.5)
 legend('bottomright', legend=sprintf('%d-%d weeks', seq(100,400,100), seq(200,500,100)), lty=1, lwd=lwd,
        bty='n', col=COL, inset=c(0,0))
 if (SAVE_PLOTS) dev.off()
-```
+
 
 # Fig. 4b: Assumption II (power-law decay)
 
-```{r}
 dfs_raw <- NULL
 dfs_fit <- NULL
 
@@ -167,11 +150,10 @@ axis(2); mtext('Retweet count', side=2, line=2.5)
 legend('topright', legend=sprintf('Followers of week %d', seq(0,240,80)), lty=1, lwd=lwd,
        bty='n', col=COL[5:8], inset=c(0,-0.07))
 if (SAVE_PLOTS) dev.off()
-```
+
 
 # Fig. 5: Power-law parameters
 
-```{r}
 df <- read.table(sprintf('%s/fig5.txt', DATA_DIR), header=TRUE)
 colnames(df) <- c('x', 'alpha', 'c')
 
@@ -193,68 +175,3 @@ plot(df$x, df$alpha, type='l', xlim=xlim, ylim=c(0,1), col=col_alpha, bty='n', l
 axis(2, col=col_alpha, col.axis=col_alpha)
 mtext(expression(alpha), side=2, line=2.5, col=col_alpha)
 if (SAVE_PLOTS) dev.off()
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Fig. 2: Clusters
-
-```{r}
-dfs <- list()
-
-for (i in 1:4) {
-  wmin <- i*100
-  wmax <- (i+1)*100
-  dfs[[i]] <- list()
-  for (clust in 1:4) {
-    df <- read.table(sprintf('%s/fig2/%d_%d/%d.txt', DATA_DIR, wmin, wmax, clust), header=TRUE)
-    dfs[[i]][[clust]] <- df
-  }
-}
-
-par(mfrow=c(4,4))
-for (i in 1:4) {
-  for (clust in 1:4) {
-    plot(dfs[[i]][[clust]], type='l')
-  }
-}
-
-
-xlim <- range(do.call(rbind, dfs)[,'x'])
-ylim <- range(do.call(rbind, dfs)[,'y'])
-lwd <- 2
-
-if (SAVE_PLOTS) pdf(sprintf('%s/fig1b.pdf', PLOT_DIR), width=1.7, height=1.4, pointsize=6,
-                      family='Helvetica', useDingbats=FALSE)
-par(mar=c(3.5, 3.5, 1.0, 0.5))
-for (i in 1:4) {
-  df <- dfs[[i]]
-  if (i == 1) {
-    plot(df$x, df$y, type='l', xlim=xlim, ylim=ylim, col=COL[i], bty='n', lwd=lwd, axes=FALSE,
-         xlab='', ylab='')
-  } else {
-    lines(df$x, df$y, col=COL[i], lwd=lwd)
-  }
-}
-axis(1); mtext('Week on Twitter', side=1, line=2.5)
-axis(2); mtext('Retweets per 1000 followers', side=2, line=2.5)
-legend('topright', legend=sprintf('%d-%d weeks', seq(100,400,100), seq(200,500,100)), lty=1, lwd=lwd,
-       bty='n', col=COL, inset=c(0,-0.07))
-if (SAVE_PLOTS) dev.off()
-```
