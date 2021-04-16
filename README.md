@@ -5,6 +5,8 @@ Evolution of Retweet Rates in Twitter User Careers: Analysis and Model.
 *Proceedings of the 15th International Conference on Web and Social Media,*
 2021.
 
+https://arxiv.org/abs/2103.10754
+
 # Code and data
 
 The dataset, as well as code for obtaining historical follower counts from the Internet Archive, can be found at https://zenodo.org/record/4685973
